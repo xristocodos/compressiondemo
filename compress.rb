@@ -1,11 +1,11 @@
 # compress text files
 
-def text_input
+def compress
 
   puts "Please enter the filename of text to compress?"
   filename = gets.chomp
   text = File.open(filename, "r"){|file| file.read}
-  text_stripped = text.gsub(/\n/," ").downcase.gsub(/[^a-z ]/, '')
+  text_stripped = text.gsub("\n", " ").gsub(",", "").gsub(".", "").gsub("...", "").gsub("!","")
 
   puts "\n"
   puts "Please enter compression factor (cipher key quantity):"
@@ -18,7 +18,7 @@ def text_input
   lossy -= 1 # boolean for lossy [0] = lossless, [1] = lossy
 
 
-  lyrical_array = text.split(" ")
+  lyrical_array = text_stripped.split(" ")
 
   lyrical_db = {}
 
@@ -84,11 +84,12 @@ def text_input
   elsif lossy == 0
     puts "Mode: \t\tLOSSLESS"
   end
-  puts "INPUT:\t\t#{text.length} chars"
+  puts "ORIGINAL:\t\t#{text.length} chars/bytes"
   puts "FACTOR: \t#{factor}"
-  puts "COMPRESSED: \t#{text_compressed.length} chars"
-  puts "UNCOMPRESSED:\t#{text_decompressed.length} chars"
+  puts "COMPRESSED: \t#{text_compressed.length} chars/bytes"
+  puts "UNCOMPRESSED:\t#{text_decompressed.length} chars/bytes"
+  #puts lyrical_array
 end
 
-text_input
+compress
 # end
