@@ -1,13 +1,6 @@
-
-#pull in text
-#ask for "x-factor"
-#pick top x words to make dict
-#sub out with dict cipher
-#print out: file size before vs after, then new file
-#fake "WEISSMAN SCORE ANIMATION"
+# compress text files
 
 def text_input
-  #TODOMARKER: fileio
 
   puts "Please enter the filename of text to compress?"
   filename = gets.chomp
@@ -22,15 +15,14 @@ def text_input
   puts "\n"
   puts "[1] for LOSSLESS, [2] for LOSSY"
   lossy = gets.chomp.to_i
-  lossy -= 1 #boolean for lossy [0] = lossless, [1] = lossy
+  lossy -= 1 # boolean for lossy [0] = lossless, [1] = lossy
 
 
   lyrical_array = text.split(" ")
 
-  #make hash target
   lyrical_db = {}
 
-  #iterate over array, store each unique word into hash
+  # iterate over array, store each unique word into hash
   lyrical_array.each do |word|
     if lyrical_db.keys.include?(word)
       lyrical_db[word] += 1
@@ -39,28 +31,11 @@ def text_input
     end
   end
 
-  ##translation time!
+  # translation time!
   translation_hash = {}
   freq_array = []
 
   freq_array = lyrical_db.values.sort.reverse
-
-  # puts "\n"
-  # puts "Lyrical db"
-  # puts lyrical_db
-
-  # puts "\n"
-  # puts "freq_array"
-  # puts freq_array
-
-  # puts "\n"
-  # puts "LOOPSTATSLOOPSTATSLOOPSTATSLOOPSTATSLOOPSTATSLOOPSTATSLOOPSTATS"
-  # puts "factor = #{factor}"
-  # puts "\n"
-  # puts "freq_array = #{freq_array}"
-  # puts "\n"
-  # puts "freq_array[#{factor}] = #{freq_array[factor]}"
-  # puts "\n"
 
   lyrical_db.each do |word, count|
 
@@ -79,9 +54,6 @@ def text_input
   puts translation_hash
 
 
-  # text_compressed = translation_hash.map do | key, value |
-  #   text = text.gsub(key, value)
-  # end
   text_compressed = text
   translation_hash.each do | key, value |
     text_compressed = text_compressed.gsub(key, value)
@@ -95,7 +67,7 @@ def text_input
 
   text_decompressed = text_compressed
   translation_hash.each do | key, value |
-    text_decompressed = text_decompressed.gsub(value, key)  #FLIPMODE IS THE GREATEST
+    text_decompressed = text_decompressed.gsub(value, key)
   end
   puts "\n"
 
@@ -106,16 +78,17 @@ def text_input
 
 
   puts "\n\n\n"
-  puts "////////STATS/////////"
+  puts "//////////STATS///////////"
   if lossy == 1
-    puts "Mode: LOSSY"
+    puts "Mode: \t\tLOSSY"
   elsif lossy == 0
-    puts "Mode: LOSSLESS"
+    puts "Mode: \t\tLOSSLESS"
   end
-  puts "INPUT: \t#{text.length} chars"
+  puts "INPUT:\t\t#{text.length} chars"
+  puts "FACTOR: \t#{factor}"
   puts "COMPRESSED: \t#{text_compressed.length} chars"
   puts "UNCOMPRESSED:\t#{text_decompressed.length} chars"
 end
 
 text_input
-#end
+# end
