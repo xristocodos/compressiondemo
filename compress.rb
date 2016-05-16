@@ -18,7 +18,7 @@ def text_input
   puts "Please enter compression factor (cipher key quantity):"
   factor = gets.chomp
   factor = factor.to_i
-  
+
   puts "\n"
   puts "[1] for LOSSLESS, [2] for LOSSY"
   lossy = gets.chomp.to_i
@@ -44,15 +44,15 @@ def text_input
   freq_array = []
 
   freq_array = lyrical_db.values.sort.reverse
- 
+
   # puts "\n"
   # puts "Lyrical db"
   # puts lyrical_db
 
-  # puts "\n" 
+  # puts "\n"
   # puts "freq_array"
   # puts freq_array
-    
+
   # puts "\n"
   # puts "LOOPSTATSLOOPSTATSLOOPSTATSLOOPSTATSLOOPSTATSLOOPSTATSLOOPSTATS"
   # puts "factor = #{factor}"
@@ -61,13 +61,13 @@ def text_input
   # puts "\n"
   # puts "freq_array[#{factor}] = #{freq_array[factor]}"
   # puts "\n"
-  
+
   lyrical_db.each do |word, count|
 
     if count >= freq_array[factor]
-      if lossy
+      if lossy == 1
         translation_hash[word] = word[0]
-      else
+      elsif lossy == 0
         translation_hash[word] = "%" + word[0]
       end
     end
@@ -99,7 +99,7 @@ def text_input
   end
   puts "\n"
 
-  
+
   puts "///////////DECOMPRESSED TEXT///////////"
   puts text_decompressed
   puts "////////DECOMPRESSED TEXT END//////////"
@@ -107,9 +107,9 @@ def text_input
 
   puts "\n\n\n"
   puts "////////STATS/////////"
-  if lossy
+  if lossy == 1
     puts "Mode: LOSSY"
-  else
+  elsif lossy == 0
     puts "Mode: LOSSLESS"
   end
   puts "INPUT: \t#{text.length} chars"
@@ -119,4 +119,3 @@ end
 
 text_input
 #end
-
